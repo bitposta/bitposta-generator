@@ -241,13 +241,52 @@ def test_acknowledged_admission_combinations(cli, monkeypatch, allow, online):
     monkeypatch.setattr(gen, 'looks_online', lambda: probes.append('probe') or online)
     flags = ['--count', '1', '--acknowledge-offline'] + (['--allow-online'] if allow else [])
     if online and not allow:
-        with pytest.raises(SystemExit, match='Connectivity detected'):
+        with pytest.raises(SystemExit) as raised:
             cli.run(*flags)
+        assert raised.value.code not in (0, None)
         assert not cli.calls
     else:
         cli.run(*flags)
         assert ('keygen', gen.make_plan(cli.cfg).per_sheet) in cli.calls
     assert len(probes) == (0 if allow else 1)
+
+
+def test_online_refusal_speaks_plainly_and_states_the_safe_order(cli, monkeypatch, capsys):
+    """The owner wanted this gate to sound like a person, not a manual.
+
+    It stays a hard gate: the run must abort before a single key is made. What
+    the test pins is that the refusal (a) names the promise made to customers,
+    (b) tells the operator the exact safe order, and (c) still refuses.
+    """
+    monkeypatch.setattr(gen, 'looks_online', lambda: True)
+    with pytest.raises(SystemExit) as raised:
+        cli.run('--count', '1', '--acknowledge-offline')
+    assert raised.value.code not in (0, None)
+    message = capsys.readouterr().err
+    for phrase in ('مشتری', 'اعتماد', 'نا امن', 'قطع'):
+        assert phrase in message, phrase
+    # The safe order must be spelled out, and in this order. Scope the check to
+    # the steps themselves: 'پاک' also occurs earlier inside «پاکت».
+    steps = message.split('ترتیب درست کار', 1)[1]
+    assert steps.index('قطع') < steps.index('بساز') < steps.index('چاپ') < steps.index('پاک')
+    # Nothing may be generated, and the bypass flag must not be mentioned as advice.
+    assert not cli.calls
+    assert '--allow-online' not in message
+
+
+def test_online_refusal_survives_a_non_utf8_console(cli, monkeypatch, capsys):
+    """An offline live machine may run under LANG=C; the gate must not crash.
+
+    A UnicodeEncodeError here would replace the refusal with a traceback, which
+    is still a stop but an unreadable one.
+    """
+    monkeypatch.setattr(gen, 'looks_online', lambda: True)
+    monkeypatch.setattr(sys, 'stderr', io.TextIOWrapper(io.BytesIO(),
+                                                        encoding='ascii', errors='strict',
+                                                        line_buffering=True))
+    with pytest.raises(SystemExit):
+        cli.run('--count', '1', '--acknowledge-offline')
+    assert not cli.calls
 
 
 def test_entire_run_total_reaches_wallet_factory(cli):

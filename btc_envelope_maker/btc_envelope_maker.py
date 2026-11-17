@@ -407,6 +407,61 @@ def looks_online() -> bool:
     return False
 
 
+# The refusal below is deliberately blunt and personal. The owner asked for a
+# message that sounds like a person reminding him of a promise, not a manual
+# line, because this is the one gate that decides whether keys were ever exposed
+# to a networked machine. The safe order matters more than the tone, so it is
+# spelled out step by step at the end.
+OFFLINE_REFUSAL_FA = """\
+داداش! تو به مشتری‌هات قول دادی که آنلاین تولید نمی‌کنی!
+
+من صدای وجدانت هستم که یادآوری کنم: مشتری‌هات به تو اعتماد کردن. پول دادن،
+اعتماد کردن، و پاکت رو دست گرفتن. حالا تو داری روی سیستمی کلید می‌سازی که به
+اینترنت وصله؟ نکن! زشته! نامردیه! ناجوانمردیه! نا امنه.
+
+هر ثانیه‌ای که این دستگاه به شبکه وصله، کلمات بازیابی از همون دستگاهی می‌آد که
+می‌تونه به بیرون حرف بزنه. هیچ پروب شبکه‌ای هم نمی‌تونه ثابت کنه این دستگاه
+ایزوله‌ست؛ پس صبر نکن تا مطمئن شی، فقط قطعش کن.
+
+ترتیب درست کار، دقیقاً همین:
+
+  ۱. اول شبکه رو قطع کن: وای‌فای رو خاموش کن، کابل شبکه رو بکش، و اگر
+     می‌تونی مودم/روتر رو هم خاموش کن.
+  ۲. از اتصال قطع بودن مطمئن شو: یک بار دیگر همین فرمان رو بزن؛ تا این پیام
+     نیاد، یعنی هنوز آنلاینی.
+  ۳. بعد کیف پول بساز.
+  ۴. بعد چاپ کن.
+  ۵. کیف پول و کلید و فایل چاپی و خروجی موقت رو از دستگاه پاک کن.
+  ۶. آخر از همه، دوباره به اینترنت وصل شو.
+
+اگر دستگاه آفلاین واقعی و چاپگر آفلاین مطمئن داری، دوباره با
+--acknowledge-offline اجرا کن. این پرچم فقط تأیید قصد است، نه اثبات امنیت.
+
+تولید متوقف شد. هیچ کلیدی ساخته نشد."""
+
+
+def offline_refusal() -> None:
+    """Abort real generation when the machine still looks networked.
+
+    Writes UTF-8 straight to the stream when it can, and falls back to escaped
+    text if the console encoding cannot carry Persian: an offline live machine
+    may well run under LANG=C, and a UnicodeEncodeError here would replace a
+    readable refusal with a traceback.
+    """
+    stream = sys.stderr
+    try:
+        stream.write(OFFLINE_REFUSAL_FA + "\n")
+        stream.flush()
+    except (UnicodeEncodeError, ValueError):
+        try:
+            encoding = getattr(stream, "encoding", None) or "ascii"
+            stream.write(OFFLINE_REFUSAL_FA.encode(encoding, "backslashreplace").decode(encoding, "replace") + "\n")
+            stream.flush()
+        except Exception:
+            pass
+    sys.exit(1)
+
+
 # --------------------------------------------------------------------------------------
 # Persian (Jalali) date  ->  serial number
 # --------------------------------------------------------------------------------------
@@ -1355,8 +1410,7 @@ def main() -> None:
         if not args.count or not (1 <= args.count <= 500):
             sys.exit("Give the number of sheets, e.g.  --count 1")
         if not args.allow_online and looks_online():
-            sys.exit("Connectivity detected. Real keys must be made offline.\n"
-                     "Disconnect Wi-Fi / unplug the network cable and run again.")
+            offline_refusal()
         print("Offline acknowledgement received; probes cannot prove network isolation.")
         n_sheets_wanted = args.count
         if db_url:   # pre-flight: a remote database is normally NOT reachable from an offline computer
