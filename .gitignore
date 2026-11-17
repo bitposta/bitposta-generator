@@ -22,6 +22,9 @@ secrets/
 *.kdbx
 privatekey.png
 publickey.png
+# Local BMAD installation; _bmad-output/ remains versionable
+/_bmad/
+/.agents/
 # Local environments and tooling
 .venv/
 .venv-*/

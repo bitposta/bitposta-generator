@@ -20,6 +20,7 @@ import argparse
 import csv
 import datetime as dt
 import io
+import json
 import math
 import os
 import re
@@ -1044,36 +1045,37 @@ def draw_card_secret(c, cfg: dict, rec: Wallet, W: float, H: float) -> None:
     """
     M = 3 * mm
     n = cfg["words"]
-    cols = 4 if n <= 12 else 5
+    cols = 2 if n <= 12 else 3
     rows = math.ceil(n / cols)
     inner_w = W - 2 * M
     # Title and serial each get their own line: the panel is too narrow to share a row.
     draw_block(c, cfg["inside_title"], M, H - 2.0 * mm, inner_w, 4.5 * mm, "Body", 8,
                color=RED, align="right", bold=True)
-    put(c, rec.serial, W - M, H - 8.6 * mm, "Body", 7, align="right", bold=True)
+    put(c, rec.serial, W - M, H - 8.6 * mm, "Body", 8, align="right", bold=True)
     c.setStrokeColor(RED)
     c.setLineWidth(0.7)
     c.line(M, H - 10.5 * mm, W - M, H - 10.5 * mm)
-    # QR on the left, word grid on the right: 20 mm QR + 2 mm gap leaves 57.6 mm
-    # for the grid, which still fits four columns at ~7 pt.
+    # Two columns for 12 words give each numbered word room at 8.5 pt.
+    # The grid extends below the unchanged 20 mm QR, within the secret panel.
     q = 20 * mm
     qx, qy = M, H - 12.5 * mm - q
     draw_qr(c, rec.mnemonic, qx, qy, q)
     grid_x = qx + q + 2 * mm
     grid_w = W - M - grid_x
     col_w = grid_w / cols
-    fs = min(7.5, fit_size("24. xxxxxxxx", "Body", col_w - 0.6 * mm, 7.5))
-    fs = min(fs, (q - 1 * mm) / rows / 1.35)
+    fs = min(8.5, fit_size("24. xxxxxxxx", "Body", col_w - 0.6 * mm, 8.5))
+    grid_h = H - 19 * mm
+    fs = min(fs, grid_h / rows / 1.35)
     num_w = text_width("24.", "Body", fs)
     sp_w = text_width("24. ", "Body", fs)
     top = H - 12.5 * mm
-    row_h = (q - 1 * mm) / rows
+    row_h = grid_h / rows
     for i, word in enumerate(rec.mnemonic.split()):
         k, r = divmod(i, rows)
         x0 = grid_x + k * col_w
         yb = top - r * row_h - fs * 0.95
-        put(c, f"{i + 1}.", x0 + num_w, yb, "Body", fs, align="right", color=GRAY)
-        put(c, word, x0 + sp_w, yb, "Body", fs)
+        put(c, f"{i + 1}.", x0 + num_w, yb, "Body", fs, align="right", bold=True)
+        put(c, word, x0 + sp_w, yb, "Body", fs, bold=True)
     draw_block(c, cfg["contact"], M, 4.0 * mm, inner_w, 3.0 * mm, "Body", 5.5,
                color=GRAY, align="center")
 
@@ -1154,12 +1156,12 @@ def draw_regency_card_back(c, rec: Wallet, leaf_y: float, preview: bool) -> None
     q = 24 * mm
     draw_qr(c, rec.address, (W - q) / 2, H - q - 1.5 * mm, q)
     # keep a clear quiet zone under the QR before the serial line
-    put(c, rec.serial, W / 2, H - q - 6.5 * mm, "Body", 8, align="center")
+    put(c, rec.serial, W / 2, H - q - 6.5 * mm, "Body", 9, align="center", bold=True)
     draw_block(c, "هشدار: قبل از باز کردن سایت", 2 * mm, H - q - 8 * mm, W - 4 * mm, 5 * mm,
-               "Body", 7.5, align="center", bold=True)
-    put(c, "https://b.tc4fun.ir", W / 2, H - q - 14 * mm, "Body", 9, align="center")
-    draw_block(c, "مطالعه شود", 2 * mm, H - q - 16 * mm, W - 4 * mm, 5 * mm,
-               "Body", 7.5, align="center", bold=True)
+               "Body", 8.5, align="center", bold=True)
+    put(c, "https://b.tc4fun.ir", W / 2, H - q - 15.5 * mm, "Body", 10, align="center", bold=True)
+    draw_block(c, "مطالعه شود", 2 * mm, H - q - 18 * mm, W - 4 * mm, 5 * mm,
+               "Body", 8.5, align="center", bold=True)
     if preview:
         watermark(c, W, H)
     c.restoreState()
@@ -1235,13 +1237,18 @@ def render_sheets(cfg: dict, plan: Plan, wallets: list[Wallet], targets: dict, p
 
 
 def write_ledger(path: Path, cfg: dict, wallets: list[Wallet], human_dt: str, now: str) -> None:
+    public_columns = ("public_notes", "site_key", "site_url", "image_url")
+    public = [cfg.get(name) or "" for name in public_columns]
+    # Config links are already normalized; JSON preserves separators and Unicode.
+    public.append(json.dumps(cfg["public_links"], ensure_ascii=False, sort_keys=True,
+                             separators=(",", ":")) if cfg.get("public_links") else "")
     with open(path, "w", newline="", encoding="utf-8-sig") as f:
         w = csv.writer(f)
         w.writerow(["serial", "address", "jalali_datetime", "created_utc", "sheet", "slot", "explorer_link",
-                    "status", "sold_to", "funding_txid", "notes"])
+                    "status", "sold_to", "funding_txid", "notes", *public_columns, "public_links"])
         for r in wallets:
             link = (cfg["explorer_url"] + r.address) if cfg["explorer_url"] else ""
-            w.writerow([r.serial, r.address, human_dt, now, r.sheet, r.slot, link, "", "", "", ""])
+            w.writerow([r.serial, r.address, human_dt, now, r.sheet, r.slot, link, "", "", "", "", *public])
 
 
 @contextmanager
