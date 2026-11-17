@@ -81,9 +81,9 @@ BLACK = HexColor("#111111")
 SHEETS = {"A3": (297, 420), "A4": (210, 297), "A5": (148, 210), "A6": (105, 148), "LETTER": (215.9, 279.4)}
 
 DEFAULTS = {
-    "brand_name": "b.tc4fun.ir",
+    "brand_name": "bitposta.com",
     "tagline": "",
-    "contact": "b.tc4fun.ir   |   09113458375@b.tc4fun.ir",
+    "contact": "bitposta.com   |   09113458375@bitposta.com",
     "logo": "",
     "accent_color": "#1f3a5f",
     "serial_prefix": "",
@@ -227,7 +227,7 @@ def normalize_public_links(value) -> dict:
     return clean
 
 # Hosts allowed for the optional public site_url / image_url values.
-PUBLIC_URL_HOSTS = frozenset({"btc4.fun", "btc.saeb.id.ir", "b.tc4fun.ir"})
+PUBLIC_URL_HOSTS = frozenset({"bitposta.com", "btc.saeb.id.ir"})
 SITE_KEY_RE = re.compile(r"[A-Za-z0-9._-]{1,64}")
 # Control and format characters (incl. bidi overrides) are never allowed in public text.
 _UNSAFE_TEXT = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f-\x9f\u200b-\u200f\u202a-\u202e\u2060-\u206f\ufeff]")
@@ -983,7 +983,7 @@ def draw_regency_back(c, rec: Wallet, preview: bool) -> None:
     put(c, rec.address, 105 * mm, 131 * mm, "Body", 7, align="center")
     draw_block(c, "هشدار: قبل از باز کردن سایت", 57 * mm, 123 * mm,
                96 * mm, 8 * mm, "Body", 10, align="center", bold=True)
-    put(c, "https://b.tc4fun.ir", 105 * mm, 110 * mm, "Body", 12, align="center")
+    put(c, "https://bitposta.com", 105 * mm, 110 * mm, "Body", 12, align="center")
     draw_block(c, "مطالعه شود", 57 * mm, 105 * mm, 96 * mm, 8 * mm,
                "Body", 10, align="center", bold=True)
     if preview:
@@ -1003,7 +1003,7 @@ def draw_regency_accounts(c, cfg: dict, wallets: list[Wallet], preview: bool) ->
         c.rect(0, 0, 96 * mm, 137 * mm)
         put(c, rec.serial, 48 * mm, 128 * mm, "Body", 11, align="center")
         draw_qr(c, rec.address, 6 * mm, 84 * mm, 32 * mm)
-        link = "https://b.tc4fun.ir/s/" + rec.serial
+        link = "https://bitposta.com/s/" + rec.serial
         draw_qr(c, link, 58 * mm, 84 * mm, 32 * mm)
         draw_block(c, "آدرس حساب", 4 * mm, 80 * mm, 36 * mm, 9 * mm,
                    "Body", 9, align="center")
@@ -1132,7 +1132,7 @@ def draw_regency_card_inside(c, cfg: dict, rec: Wallet, leaf_y: float, preview: 
                    "راهنمای کامل امنیت:"],
                CARD_PANEL_X * mm, (CARD_LEAF_H - CARD_SEAL_TAB - 3) * mm,
                CARD_ENV_W * mm, 34 * mm, "Body", 6.5, align="center")
-    put(c, "https://b.tc4fun.ir/security", CARD_LEAF_W * mm / 2,
+    put(c, "https://bitposta.com/security", CARD_LEAF_W * mm / 2,
         (CARD_LEAF_H - CARD_SEAL_TAB - 37) * mm, "Body", 7.5, align="center", bold=True)
     c.saveState()
     c.translate(CARD_PANEL_X * mm, CARD_PANEL_Y * mm)
@@ -1159,7 +1159,7 @@ def draw_regency_card_back(c, rec: Wallet, leaf_y: float, preview: bool) -> None
     put(c, rec.serial, W / 2, H - q - 6.5 * mm, "Body", 9, align="center", bold=True)
     draw_block(c, "هشدار: قبل از باز کردن سایت", 2 * mm, H - q - 8 * mm, W - 4 * mm, 5 * mm,
                "Body", 8.5, align="center", bold=True)
-    put(c, "https://b.tc4fun.ir", W / 2, H - q - 15.5 * mm, "Body", 10, align="center", bold=True)
+    put(c, "https://bitposta.com", W / 2, H - q - 15.5 * mm, "Body", 10, align="center", bold=True)
     draw_block(c, "مطالعه شود", 2 * mm, H - q - 18 * mm, W - 4 * mm, 5 * mm,
                "Body", 8.5, align="center", bold=True)
     if preview:

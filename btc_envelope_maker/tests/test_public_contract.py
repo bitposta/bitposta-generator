@@ -17,8 +17,8 @@ class GeneratorBrandingContract(unittest.TestCase):
         defaults = ast.literal_eval(assignment.value)
         example = tomllib.loads((ROOT / 'btc_envelope_maker/config.example.toml').read_text())
         for config in (defaults, example):
-            self.assertEqual(config['brand_name'], 'b.tc4fun.ir')
-            self.assertEqual(config['contact'], 'b.tc4fun.ir   |   09113458375@b.tc4fun.ir')
+            self.assertEqual(config['brand_name'], 'bitposta.com')
+            self.assertEqual(config['contact'], 'bitposta.com   |   09113458375@bitposta.com')
             self.assertEqual(config['db_url'], '')
             self.assertEqual(config['explorer_url'], 'https://mempool.space/address/')
 
@@ -28,16 +28,16 @@ def test_existing_configured_brand_is_not_rewritten(tmp_path):
     """The new default affects new runs only; old config/output identity survives."""
     config = tmp_path / 'existing-config.toml'
     config.write_text(
-        'brand_name = "btc4.fun"\n'
-        'contact = "btc4.fun   |   09113458375@btc4.fun"\n'
+        'brand_name = "bitposta.com"\n'
+        'contact = "bitposta.com   |   09113458375@bitposta.com"\n'
         'explorer_url = "https://mempool.space/address/"\n',
         encoding='utf-8',
     )
     from test_generator_security import gen
 
     loaded = gen.load_config(config)
-    assert loaded['brand_name'] == 'btc4.fun'
-    assert loaded['contact'] == 'btc4.fun   |   09113458375@btc4.fun'
+    assert loaded['brand_name'] == 'bitposta.com'
+    assert loaded['contact'] == 'bitposta.com   |   09113458375@bitposta.com'
     assert loaded['explorer_url'] == 'https://mempool.space/address/'
 
 

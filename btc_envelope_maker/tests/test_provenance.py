@@ -29,6 +29,6 @@ def test_every_original_generator_path_has_valid_provenance_and_final_hash():
     assert entry['adaptation'] != 'unchanged'
     assert 'public_notes' in entry['adaptation']
     entry = next(item for item in generator if item['source_path'] == 'btc_envelope_maker/btc_envelope_maker.py')
-    assert 'b.tc4fun.ir' in entry['adaptation']
+    assert 'bitposta.com' in entry['adaptation']
     assert entry['source_git_blob'] == '8bdfb78ad4655c1f8bfcdf98e28510a9c3d6b863'
     assert entry['source_sha256'] == 'ba28920c681daf903730c294ac510dde5deb111c7262a8534fe6bfde46bbb37e'

@@ -1,6 +1,6 @@
 # Generator security policy
 
-Report privately to 09113458375@btc4.fun. Never send recovery words, private
+Report privately to 09113458375@bitposta.com. Never send recovery words, private
 keys, confidential PDFs, credentials or customer ledgers in issues or messages.
 
 This standalone repository preserves the generator behavior and limitations

@@ -17,8 +17,8 @@
       "destination_path": "btc_envelope_maker/README.md",
       "source_sha256": "64a3124ec4ac0de0352b1e3c17c74b99cd9349adaae8a469ccd9598b5273ce01",
       "source_git_blob": "16b72f1d6d22349da2d7f31c68447c0cc655c4dc",
-      "destination_sha256": "8590b5562c4ecceb80d41b58f4d7ef4ccdfa4333dde640f14182b46a1d6288e4",
-      "adaptation": "Document new-output domain and printable contact default b.tc4fun.ir; preserve existing configurations and original source provenance. Document the serial_minsec \"short\" mode (5-char stem, 36 runs/hour, legacy 9-char still accepted). Document the optional public metadata keys (public_notes, site_key, site_url, image_url, public_url_hosts) and their limits. Document offline ledger metadata and the separately authorized repair of existing records."
+      "destination_sha256": "e12bfbe984ce78070d73a7b9242dc6339db6f23ce0133ec066342d479ffe4b81",
+      "adaptation": "Document new-output domain and printable contact default b.tc4fun.ir; preserve existing configurations and original source provenance. Document the serial_minsec \"short\" mode (5-char stem, 36 runs/hour, legacy 9-char still accepted). Document the optional public metadata keys (public_notes, site_key, site_url, image_url, public_url_hosts) and their limits. Document offline ledger metadata and the separately authorized repair of existing records. Rebrand the new-output brand, printable mailbox and printed card addresses from b.tc4fun.ir/btc4.fun to bitposta.com; the default PUBLIC_URL_HOSTS is now bitposta.com plus btc.saeb.id.ir only, with no legacy host retained."
     },
     {
       "source_path": "btc_envelope_maker/address_validation.py",
@@ -41,16 +41,16 @@
       "destination_path": "btc_envelope_maker/btc_envelope_maker.py",
       "source_sha256": "ba28920c681daf903730c294ac510dde5deb111c7262a8534fe6bfde46bbb37e",
       "source_git_blob": "8bdfb78ad4655c1f8bfcdf98e28510a9c3d6b863",
-      "destination_sha256": "3d4b7535f73b1630fa463be223cb09ca4884eee609f7a4bd865b8db1c0187ee9",
-      "adaptation": "Change new-output brand and printable contact website defaults to b.tc4fun.ir; retain existing operator config and email. Add optional public metadata config keys with https/host validation and pass them to the database row. Add serial_minsec mode 'short': 5-char stem Y(1,base36)+M+D+H+X(1,base36) with a per-hour counter derived from existing batch_* folders (no DB); digits/compact modes retained. Require site_url's host to match site_key (the site's name) so the public pair is a key/value of name and address. Add optional public_links key/value map (instagram, telegram, ...) validated as https URLs and stored with each row. Add opt-in Regency Method-3 full-A4 envelopes with secrets on inward face, duplex public backs and public account companions. Add opt-in card-sized Regency envelopes (regency_card): two 171.2 x 148 mm leaves per A4, sealed packet 85.6 x 54 mm with a 12 mm wax-seal tab, secrets on the inward face and the public address QR plus warning on the back. Replace the card-sized envelope's fold instructions with cold-storage guidance and the https://b.tc4fun.ir/security link, encode the recovery words as a QR beside the printed list, and draw the cut border solid with hatched fold creases, replace the seal-tab caption with a small vector Bitcoin mark, and move the printable contact mailbox to b.tc4fun.ir. Enlarge and embolden card-envelope recovery words, inside serial and back-face text; use a taller two-column 12-word grid without changing QR sizes. Preserve all five optional public metadata fields in offline ledgers for subsequent import."
+      "destination_sha256": "9d807819125556ca3822e6b0dec37bbb54b7c392235a98aac1453f15f724c6c8",
+      "adaptation": "Change new-output brand and printable contact website defaults to b.tc4fun.ir; retain existing operator config and email. Add optional public metadata config keys with https/host validation and pass them to the database row. Add serial_minsec mode 'short': 5-char stem Y(1,base36)+M+D+H+X(1,base36) with a per-hour counter derived from existing batch_* folders (no DB); digits/compact modes retained. Require site_url's host to match site_key (the site's name) so the public pair is a key/value of name and address. Add optional public_links key/value map (instagram, telegram, ...) validated as https URLs and stored with each row. Add opt-in Regency Method-3 full-A4 envelopes with secrets on inward face, duplex public backs and public account companions. Add opt-in card-sized Regency envelopes (regency_card): two 171.2 x 148 mm leaves per A4, sealed packet 85.6 x 54 mm with a 12 mm wax-seal tab, secrets on the inward face and the public address QR plus warning on the back. Replace the card-sized envelope's fold instructions with cold-storage guidance and the https://b.tc4fun.ir/security link, encode the recovery words as a QR beside the printed list, and draw the cut border solid with hatched fold creases, replace the seal-tab caption with a small vector Bitcoin mark, and move the printable contact mailbox to b.tc4fun.ir. Enlarge and embolden card-envelope recovery words, inside serial and back-face text; use a taller two-column 12-word grid without changing QR sizes. Preserve all five optional public metadata fields in offline ledgers for subsequent import. Rebrand the new-output brand, printable mailbox and printed card addresses from b.tc4fun.ir/btc4.fun to bitposta.com; the default PUBLIC_URL_HOSTS is now bitposta.com plus btc.saeb.id.ir only, with no legacy host retained."
     },
     {
       "source_path": "btc_envelope_maker/config.example.toml",
       "destination_path": "btc_envelope_maker/config.example.toml",
       "source_sha256": "dbdcafae7aebfc0c20e3b4a7cd2806d55467678ed025a5ac2915ca8feeca1eb8",
       "source_git_blob": "7a7c569bf6d646ec6e44e13ba6ec6d6a3bfce245",
-      "destination_sha256": "c4db72508787cfa51703941fa2eedec20669426201c91d4c8a3ab2fa00db1b10",
-      "adaptation": "Align example brand and printable contact website with b.tc4fun.ir, retaining email and explorer URL. Document the optional public metadata keys. Document the serial_minsec \"short\" option. Add opt-in Regency Method-3 full-A4 envelopes with secrets on inward face, duplex public backs and public account companions."
+      "destination_sha256": "2bad3217ef5db117b3f0570b0f7ac46ad40caca5476e0c2c60b9ff331eebc2c7",
+      "adaptation": "Align example brand and printable contact website with b.tc4fun.ir, retaining email and explorer URL. Document the optional public metadata keys. Document the serial_minsec \"short\" option. Add opt-in Regency Method-3 full-A4 envelopes with secrets on inward face, duplex public backs and public account companions. Rebrand the new-output brand, printable mailbox and printed card addresses from b.tc4fun.ir/btc4.fun to bitposta.com; the default PUBLIC_URL_HOSTS is now bitposta.com plus btc.saeb.id.ir only, with no legacy host retained."
     },
     {
       "source_path": "btc_envelope_maker/fonts/LICENSE",
@@ -225,8 +225,8 @@
       "destination_path": "NOTICE",
       "source_sha256": "38b823b836aba2bb8c4ca6dbb24a68c168dcd85b474cd9a8535cbedf33cfdba0",
       "source_git_blob": "3e1052d285d6c1d56e552e9883c9222b11d3ba69",
-      "destination_sha256": "af414b80b4c9ecf8553b00cbe43c877305e6ab1a1f1267f58081a390f182b6ef",
-      "adaptation": "Remove website font attribution; retain generator and validator licensing."
+      "destination_sha256": "f5c29085dbcb5f940ef01181cbeb4c0f64a305ec14fef23bd120ac1bc61c8945",
+      "adaptation": "Remove website font attribution; retain generator and validator licensing. Rebrand the new-output brand, printable mailbox and printed card addresses from b.tc4fun.ir/btc4.fun to bitposta.com; the default PUBLIC_URL_HOSTS is now bitposta.com plus btc.saeb.id.ir only, with no legacy host retained."
     },
     {
       "source_path": "SECURITY.md",

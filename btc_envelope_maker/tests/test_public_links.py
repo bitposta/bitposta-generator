@@ -64,7 +64,7 @@ class PublicLinksUnit(unittest.TestCase):
                     generator.normalize_public_links({key: "https://instagram.com/x"})
 
     def test_mailto_and_tel_contact_routes_are_accepted(self):
-        routes = {"ایمیل": "mailto:09113458375@btc4.fun", "تلفن": "tel:+989113458375"}
+        routes = {"ایمیل": "mailto:09113458375@bitposta.com", "تلفن": "tel:+989113458375"}
         self.assertEqual(generator.normalize_public_links(routes), routes)
 
     def test_bare_email_and_phone_become_contact_routes(self):
@@ -78,7 +78,7 @@ class PublicLinksUnit(unittest.TestCase):
 
     def test_any_https_host_is_allowed_for_a_link(self):
         # A seller's own profiles live on other hosts; only the shape is checked.
-        links = {"instagram": "https://instagram.com/b.tc4fun.ir",
+        links = {"instagram": "https://instagram.com/bitposta.com",
                  "telegram": "https://b_tc4fun_ir.t.me",
                  "youtube": "https://youtube.com/@btc4fun"}
         self.assertEqual(generator.normalize_public_links(links), links)
@@ -210,8 +210,8 @@ class PublicLinksDatabase(unittest.TestCase):
         links = {"تماس": "mailto:sample@example.invalid",
                  "تلفن": "tel:+12025550123",
                  "profile": "https://example.invalid/a;b?x=1&y=2"}
-        public = dict(public_notes='یادداشت، "عمومی"\nخط دوم', site_key="btc4.fun",
-                      site_url="https://btc4.fun/", image_url="https://btc4.fun/test.png",
+        public = dict(public_notes='یادداشت، "عمومی"\nخط دوم', site_key="bitposta.com",
+                      site_url="https://bitposta.com/", image_url="https://bitposta.com/test.png",
                       public_links=links)
         cfg = dict(public, explorer_url="https://mempool.space/address/",
                    contact="PRIVATE-CONTACT", notes="PRIVATE-NOTES")
@@ -284,7 +284,7 @@ class PublicLinksDatabase(unittest.TestCase):
 
     def test_csv_links_round_trip_through_the_flat_form(self):
         # A mailto value contains both `@` and `=`-free separators; the round trip must keep it exact.
-        links = {"ایمیل": "mailto:09113458375@btc4.fun", "سایت": "https://btc.saeb.id.ir"}
+        links = {"ایمیل": "mailto:09113458375@bitposta.com", "سایت": "https://btc.saeb.id.ir"}
         flat = btc_db._links_text(json.dumps(links, ensure_ascii=False))
         self.assertNotIn(" ", flat)
         self.assertEqual(btc_db._links_from_text(flat), links)

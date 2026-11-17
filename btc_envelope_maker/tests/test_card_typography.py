@@ -21,4 +21,4 @@ def test_card_words_and_back_are_larger_and_bold(monkeypatch):
     assert calls
     assert all(k.get('bold') for a, k in calls)
     assert next(a[5] for a, k in calls if a[1] == rec.serial) >= 9
-    assert next(a[5] for a, k in calls if a[1] == 'https://b.tc4fun.ir') >= 10
+    assert next(a[5] for a, k in calls if a[1] == 'https://bitposta.com') >= 10

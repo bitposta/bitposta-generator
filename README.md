@@ -1,6 +1,6 @@
 # btc-wallet-generator
 
-Standalone offline Bitcoin paper-wallet generator for b.tc4fun.ir. Source-available
+Standalone offline Bitcoin paper-wallet generator for bitposta.com. Source-available
 under [PolyForm Noncommercial 1.0.0](LICENSE.md); see [NOTICE](NOTICE).
 This repository does not run the website or either Android application.
 
@@ -26,7 +26,7 @@ cp config.example.toml config.toml
 Preview uses a public recovery phrase. **Never fund preview/test addresses.**
 Keep real config, wallets, PDFs, ledgers and databases outside Git; disconnect
 networking and use a trusted offline machine/printer before real generation.
-Newly generated cards use `b.tc4fun.ir` as their printed project domain. This is
+Newly generated cards use `bitposta.com` as their printed project domain. This is
 a default for new runs only: existing PDFs, ledgers, and operator config files
 are not rewritten. The separate address-verification QR remains configured by
 `explorer_url` (mempool.space in the example) and is not replaced by the
@@ -65,10 +65,10 @@ initial unstaged snapshot and rejects any unreviewed file.
 
 ## Separate owners
 
-- Website/backend: https://github.com/btc4-fun/btc-envelope-maker
-- Generator publication target: https://github.com/btc4-fun/btc-wallet-generator
-- Customer app: https://github.com/btc4-fun/btc-tag-checker
-- Seller app: https://github.com/btc4-fun/btc-tag-mapper
+- Website/backend: https://github.com/bitposta/bitposta-site
+- Generator publication target: https://github.com/bitposta/bitposta-generator
+- Customer app: https://github.com/bitposta/bitposta-checker
+- Seller app: https://github.com/bitposta/bitposta-mapper
 
 Repository publication is separate from website deployment. A split alone does
 not resolve historical security findings or authorize migrations/deployment.

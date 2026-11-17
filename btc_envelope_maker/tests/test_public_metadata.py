@@ -117,12 +117,12 @@ class NullSemanticsTests(unittest.TestCase):
         btc_db.check(self.url)
         btc_db.save_rows(self.url, "wallets", [
             btc_db.Row("fixture-1", SYNTHETIC_ADDRESS, "", "", "", "   ", "", ""),
-            btc_db.Row("fixture-2", SYNTHETIC_ADDRESS_2, public_notes="note", site_key="btc4.fun",
-                       site_url="https://btc4.fun/", image_url="https://btc4.fun/x.png"),
+            btc_db.Row("fixture-2", SYNTHETIC_ADDRESS_2, public_notes="note", site_key="bitposta.com",
+                       site_url="https://bitposta.com/", image_url="https://bitposta.com/x.png"),
         ])
         self.assertEqual(self.stored("fixture-1"), (None, None, None, None))
         self.assertEqual(self.stored("fixture-2"),
-                         ("note", "btc4.fun", "https://btc4.fun/", "https://btc4.fun/x.png"))
+                         ("note", "bitposta.com", "https://bitposta.com/", "https://bitposta.com/x.png"))
 
     def test_plain_ledger_insert_stays_backwards_compatible(self):
         # No public values -> the historical 4-column INSERT, so a pre-migration
@@ -140,14 +140,14 @@ class NullSemanticsTests(unittest.TestCase):
         ledger.write_text(
             "serial,address,jalali_datetime,created_utc,contact_type,contact_value,notes,"
             "public_notes,site_key,site_url,image_url\n"
-            f"fixture-1,{SYNTHETIC_ADDRESS},,,phone,PRIVATE,PRIVATE,public note,btc4.fun,"
-            "https://btc4.fun/,https://btc4.fun/x.png\n"
+            f"fixture-1,{SYNTHETIC_ADDRESS},,,phone,PRIVATE,PRIVATE,public note,bitposta.com,"
+            "https://bitposta.com/,https://bitposta.com/x.png\n"
             f"fixture-2,{SYNTHETIC_ADDRESS_2},,,,,,,,,,\n", encoding="utf-8")
         rows = btc_db.read_ledger(ledger)
         self.assertEqual(rows[0].public_notes, "public note")
-        self.assertEqual(rows[0].site_key, "btc4.fun")
-        self.assertEqual(rows[0].site_url, "https://btc4.fun/")
-        self.assertEqual(rows[0].image_url, "https://btc4.fun/x.png")
+        self.assertEqual(rows[0].site_key, "bitposta.com")
+        self.assertEqual(rows[0].site_url, "https://bitposta.com/")
+        self.assertEqual(rows[0].image_url, "https://bitposta.com/x.png")
         self.assertEqual(rows[1].public_notes, None)
         self.assertNotIn("PRIVATE", repr(rows))
         # List never selects or prints the optional columns either.
@@ -179,27 +179,27 @@ class ConfigValidationTests(unittest.TestCase):
 
     def test_valid_values_are_accepted(self):
         cfg = generator.load_config(self.config(
-            public_notes="یادداشت\nبا خط دوم", site_key="b.tc4fun.ir",
-            site_url="https://b.tc4fun.ir/p", image_url="https://btc4.fun/static/logo.png"))
+            public_notes="یادداشت\nبا خط دوم", site_key="bitposta.com",
+            site_url="https://bitposta.com/p", image_url="https://bitposta.com/static/logo.png"))
         self.assertEqual(cfg["public_notes"], "یادداشت\nبا خط دوم")
-        self.assertEqual(cfg["site_url"], "https://b.tc4fun.ir/p")
+        self.assertEqual(cfg["site_url"], "https://bitposta.com/p")
 
     def test_http_url_is_rejected(self):
-        self.assert_rejected(site_key="btc4.fun", site_url="http://btc4.fun/")
+        self.assert_rejected(site_key="bitposta.com", site_url="http://bitposta.com/")
 
     def test_wrong_host_is_rejected_for_site_and_image(self):
         self.assert_rejected(site_key="x", site_url="https://evil.invalid/")
         self.assert_rejected(image_url="https://evil.invalid/x.png")
 
     def test_port_userinfo_and_query_are_rejected(self):
-        for url in ("https://btc4.fun:8443/", "https://user@btc4.fun/", "https://btc4.fun/?a=1"):
+        for url in ("https://bitposta.com:8443/", "https://user@bitposta.com/", "https://bitposta.com/?a=1"):
             with self.subTest(url=url):
                 self.assert_rejected(image_url=url)
 
     def test_overlong_values_are_rejected(self):
         self.assert_rejected(public_notes="x" * 501)
         self.assert_rejected(site_key="k" * 65)
-        self.assert_rejected(image_url="https://btc4.fun/" + "x" * 600)
+        self.assert_rejected(image_url="https://bitposta.com/" + "x" * 600)
 
     def test_control_and_bidi_characters_are_rejected_in_notes(self):
         for text in ("a\u0000b", "a\u202eb", "a\ufeffb"):
@@ -207,11 +207,11 @@ class ConfigValidationTests(unittest.TestCase):
                 self.assert_rejected(public_notes=text)
 
     def test_site_key_and_url_must_appear_together(self):
-        self.assert_rejected(site_key="btc4.fun")
-        self.assert_rejected(site_url="https://btc4.fun/")
+        self.assert_rejected(site_key="bitposta.com")
+        self.assert_rejected(site_url="https://bitposta.com/")
 
     def test_bad_site_key_is_rejected(self):
-        self.assert_rejected(site_key="bad key!", site_url="https://btc4.fun/")
+        self.assert_rejected(site_key="bad key!", site_url="https://bitposta.com/")
 
     def test_owner_configured_extra_host_is_allowed(self):
         cfg = generator.load_config(self.config(
@@ -222,18 +222,18 @@ class ConfigValidationTests(unittest.TestCase):
     def test_site_url_must_match_its_key(self):
         # site_key is the site's name and site_url its address: the address must
         # belong to the named site, so a mismatched pair is a config error.
-        self.assert_rejected(site_key="btc4.fun", site_url="https://b.tc4fun.ir/")
-        self.assert_rejected(site_key="shop", site_url="https://btc4.fun/")
+        self.assert_rejected(site_key="bitposta.com", site_url="https://btc.saeb.id.ir/")
+        self.assert_rejected(site_key="shop", site_url="https://bitposta.com/")
         cfg = generator.load_config(self.config(
-            site_key="b.tc4fun.ir", site_url="https://b.tc4fun.ir/path"))
-        self.assertEqual(cfg["site_key"], "b.tc4fun.ir")
-        self.assertEqual(cfg["site_url"], "https://b.tc4fun.ir/path")
+            site_key="bitposta.com", site_url="https://bitposta.com/path"))
+        self.assertEqual(cfg["site_key"], "bitposta.com")
+        self.assertEqual(cfg["site_url"], "https://bitposta.com/path")
 
     def test_site_key_may_be_a_short_name_for_its_host(self):
         # A short label is allowed as long as the address host starts with it.
         cfg = generator.load_config(self.config(
-            site_key="btc4", site_url="https://btc4.fun/"))
-        self.assertEqual(cfg["site_key"], "btc4")
+            site_key="bitposta", site_url="https://bitposta.com/"))
+        self.assertEqual(cfg["site_key"], "bitposta")
 
     def test_shipped_example_config_keeps_public_metadata_empty(self):
         # The example is committed and public: it must never carry a real
