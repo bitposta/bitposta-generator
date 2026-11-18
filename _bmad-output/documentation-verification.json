@@ -1,0 +1,573 @@
+{
+  "date": "2026-11-11",
+  "base_commit": "778dfe304385db05089616ffa8590f0b2da934cb",
+  "scope": "documentation only; static source inspection; no software tests or publication guard executed",
+  "created_markdown": [
+    {
+      "absolute_path": "/home/saeb/PycharmProjects/btc4fun/btc_wallet_generator/_bmad-output/README.md",
+      "sha256": "5ea90df537710a15e70e5999a610df70d71b712b0fdeee8f6b6dfb78b19e26df",
+      "publication_allowlisted": false
+    },
+    {
+      "absolute_path": "/home/saeb/PycharmProjects/btc4fun/btc_wallet_generator/_bmad-output/brownfield-evidence.md",
+      "sha256": "bbd8fc3c35c389db36352fdc49abc669e448e9496542f31a95af105c621d3f23",
+      "publication_allowlisted": false
+    },
+    {
+      "absolute_path": "/home/saeb/PycharmProjects/btc4fun/btc_wallet_generator/_bmad-output/project-context.md",
+      "sha256": "1b3f4342c70069644c002375cb81a612c97224d02cb3539b4051ccee344f3981",
+      "publication_allowlisted": false
+    }
+  ],
+  "checked_source_references": 84,
+  "source_references": [
+    {
+      "document": "_bmad-output/README.md",
+      "line": 25,
+      "reference": ".agents/skills/bmad-help/SKILL.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 27,
+      "reference": "_bmad/_config/bmad-help.csv:5",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 31,
+      "reference": ".agents/skills/bmad-project-context/SKILL.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 33,
+      "reference": ".agents/skills/bmad-project-context/references/best-practices.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 35,
+      "reference": ".agents/skills/bmad-project-context/references/template.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 41,
+      "reference": "AGENTS.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 59,
+      "reference": "scripts/check_publication.py:18-33",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 61,
+      "reference": "scripts/check_publication.py:40-57",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "line": 63,
+      "reference": "scripts/publication-allowlist.json",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 11,
+      "reference": "README.md:1-16",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 13,
+      "reference": "LICENSE.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 15,
+      "reference": "NOTICE",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 19,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:304",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 21,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:370-396",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 29,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 33,
+      "reference": "btc_envelope_maker/address_validation.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 35,
+      "reference": "btc_envelope_maker/btc_db.py:461-480",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 39,
+      "reference": "btc_envelope_maker/btc_db.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 41,
+      "reference": "btc_envelope_maker/nfc_bindings.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 45,
+      "reference": "docs/repository-split.md:17-30",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 47,
+      "reference": "btc_envelope_maker/tests/fixtures/public_contract.json",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 53,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1279-1293",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 55,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1345-1364",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 63,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1295-1317",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 65,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1333-1364",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 67,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1383-1384",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 71,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1248-1259",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 73,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1372-1407",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 75,
+      "reference": "SECURITY.md:22-26",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 79,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1238-1245",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 81,
+      "reference": "btc_envelope_maker/README.md:76-85",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 89,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:304-310",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 91,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:625-657",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 93,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1170-1235",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 95,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1363",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 97,
+      "reference": "docs/regency-printing.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 103,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:88-90",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 105,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:462-519",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 107,
+      "reference": "btc_envelope_maker/README.md:71-73",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 113,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1409-1426",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 115,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1454-1455",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 121,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1238-1245",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 127,
+      "reference": "btc_envelope_maker/btc_db.py:584-604",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 129,
+      "reference": "btc_envelope_maker/btc_db.py:640-645",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 135,
+      "reference": "btc_envelope_maker/btc_db.py:501-513",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 139,
+      "reference": "btc_envelope_maker/btc_db.py:542-580",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 145,
+      "reference": "btc_envelope_maker/btc_db.py:158-172",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 147,
+      "reference": "btc_envelope_maker/btc_db.py:461-523",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 149,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:292-348",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 153,
+      "reference": "btc_envelope_maker/nfc_bindings.py:143-220",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 159,
+      "reference": ".github/workflows/verify.yml:11-28",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 165,
+      "reference": "btc_envelope_maker/tests/test_generator_crypto.py:115-170",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 167,
+      "reference": "btc_envelope_maker/tests/test_generator_security.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 169,
+      "reference": "btc_envelope_maker/tests/test_provenance.py:10-34",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 171,
+      "reference": "btc_envelope_maker/tests/test_public_metadata.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 173,
+      "reference": "btc_envelope_maker/tests/test_public_links.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 175,
+      "reference": "btc_envelope_maker/tests/test_regency_layout.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 179,
+      "reference": "btc_envelope_maker/tests/test_nfc_bindings.py:218-225",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 185,
+      "reference": "btc_envelope_maker/README.md:8-12",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/brownfield-evidence.md",
+      "line": 187,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:83-85",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 25,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 27,
+      "reference": "btc_envelope_maker/btc_db.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 29,
+      "reference": "btc_envelope_maker/nfc_bindings.py",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 31,
+      "reference": "docs/repository-split.md",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 37,
+      "reference": ".github/workflows/verify.yml",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 39,
+      "reference": "btc_envelope_maker/tests/test_nfc_bindings.py:218-225",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 43,
+      "reference": "SECURITY.md:8-10",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 45,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1290-1302",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 47,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1383-1384",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 53,
+      "reference": "btc_envelope_maker/btc_db.py:158-172",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 55,
+      "reference": "btc_envelope_maker/btc_db.py:461-523",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 59,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1238-1245",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 61,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1411-1419",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 63,
+      "reference": "btc_envelope_maker/btc_db.py:584-604",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 67,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:89",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 69,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:625-657",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 71,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1363",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 77,
+      "reference": "btc_envelope_maker/tests/test_provenance.py:10-22",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 79,
+      "reference": "docs/source-provenance.json",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 83,
+      "reference": "scripts/check_publication.py:18-33",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 85,
+      "reference": "scripts/check_publication.py:40-57",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 87,
+      "reference": "scripts/publication-allowlist.json",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 91,
+      "reference": "btc_envelope_maker/btc_envelope_maker.py:1241-1245",
+      "valid": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "line": 93,
+      "reference": "SECURITY.md",
+      "valid": true
+    }
+  ],
+  "relative_links": [
+    {
+      "document": "_bmad-output/README.md",
+      "target": "brownfield-evidence.md",
+      "valid_or_pending_report": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "target": "project-context.md",
+      "valid_or_pending_report": true
+    },
+    {
+      "document": "_bmad-output/README.md",
+      "target": "documentation-verification.json",
+      "valid_or_pending_report": true
+    },
+    {
+      "document": "_bmad-output/project-context.md",
+      "target": "brownfield-evidence.md",
+      "valid_or_pending_report": true
+    }
+  ],
+  "mixed_persian_latin_lines": [],
+  "preexisting_file_hashes_unchanged": {
+    ".gitignore": true,
+    "btc_envelope_maker/btc_envelope_maker.py": true,
+    "docs/source-provenance.json": true,
+    "btc_envelope_maker/tests/test_card_typography.py": true,
+    "AGENTS.md": true
+  },
+  "tests_run": false,
+  "generation_run": false,
+  "database_access": false,
+  "publication_guard_run": false,
+  "existing_docs_or_code_modified": false,
+  "context_loading": "explicit only; not integrated into AGENTS.md",
+  "workflow_exception": "local PC workflow normally writes AGENTS.md; prohibited by task, so standalone context under _bmad-output; config resolvers not run because config.toml reads prohibited",
+  "open_decisions": [
+    "ledger public metadata transport contract",
+    "authorized existing-record metadata repair policy",
+    "serial default and coordinated compatibility",
+    "physical print acceptance",
+    "publication allowlist or local-only documentation; future context integration"
+  ]
+}
