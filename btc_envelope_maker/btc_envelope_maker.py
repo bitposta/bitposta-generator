@@ -968,8 +968,8 @@ def draw_private(c, cfg: dict, rec: Wallet, W: float, H: float) -> None:
         k, r = divmod(i, rows)                       # fill column by column: 1-3 | 4-6 | ...
         x0 = M + 2 * mm + k * col_w
         yb = box_top - 1.2 * mm - r * row_h - fs * 0.95
-        put(c, f"{i + 1}.", x0 + num_w, yb, "Body", fs, align="right", color=GRAY)
-        put(c, word, x0 + sp_w, yb, "Body", fs)
+        put(c, f"{i + 1}.", x0 + num_w, yb, "Body", fs, align="right", color=GRAY, bold=True)
+        put(c, word, x0 + sp_w, yb, "Body", fs, bold=True)
 
     # address (only 12-word cards without QR have the room) + instructions
     y = box_top - box_h
@@ -1010,16 +1010,25 @@ def draw_regency_inside(c, cfg: dict, rec: Wallet, preview: bool) -> None:
     c.setStrokeColor(CUT)
     c.setLineWidth(0.5)
     c.setDash(4, 3)
+    # Corner ticks only, for the same reason as the card leaf: a dashed line that
+    # spans the whole sheet reads like a cut line and crams the guidance text.
+    tick = FOLD_TICK * mm
     for x in (52.5, 157.5):
-        c.line(x * mm, 5 * mm, x * mm, 292 * mm)
+        c.line(x * mm, 5 * mm, x * mm, 5 * mm + tick)
+        c.line(x * mm, 292 * mm - tick, x * mm, 292 * mm)
     for y in (80, 189):
-        c.line(5 * mm, y * mm, 205 * mm, y * mm)
+        c.line(5 * mm, y * mm, 5 * mm + tick, y * mm)
+        c.line(205 * mm - tick, y * mm, 205 * mm, y * mm)
     c.setDash()
+    # Centre the guidance block on the sheet's own axis and keep it clear of
+    # both vertical creases, instead of relying on hand-picked x/width numbers
+    # that only happened to centre.
+    guide_w = 94 * mm
     draw_block(c, ["روش سوم: ابتدا دو لبه کناری را به وسط تا کنید.",
                    "سپس لبه پایین را از خط ۸۰ میلی متر به بالا تا کنید.",
                    "لبه بالا را از خط دیگر پایین بیاورید؛ زبانه ها را در هم قرار دهید.",
                    "مهر و موم روی محل اتصال زبانه ها باشد، نه روی QR پشت پاکت."],
-               58 * mm, 270 * mm, 94 * mm, 45 * mm, "Body", 9, align="center")
+               105 * mm - guide_w / 2, 270 * mm, guide_w, 45 * mm, "Body", 9, align="center")
     c.saveState()
     c.translate(55.5 * mm, 103 * mm)
     draw_private(c, cfg, rec, 99 * mm, 65 * mm)
@@ -1090,6 +1099,19 @@ CARD_TOP_FLAP = CARD_ENV_H + CARD_SEAL_TAB     # 66: covers the panel and overha
 CARD_PANEL_Y = CARD_BOTTOM_FLAP                # 28
 CARD_TOP_FOLD = CARD_PANEL_Y + CARD_ENV_H      # 82
 
+# Length of each corner tick that marks a fold crease. Long enough to line a fold
+# up by eye, short enough that the middle of every edge stays clear of ink and
+# the hatch is never mistaken for the solid cut border.
+FOLD_TICK = 14.0
+# Inset of the serial from the panel's right edge, in mm. The serial used to sit
+# one margin (3 mm) from the crease; it now keeps clear of it.
+CARD_SERIAL_INSET = 6.5
+# Horizontal inset of the flap guidance text from both vertical creases, and its
+# drop from the seal-tab line. Keeping text off the crease marks is a print
+# requirement, not a cosmetic one: ink on a crease cracks when the paper folds.
+CARD_TEXT_INSET = 9.0
+CARD_FLAP_TEXT_TOP = 5.0
+
 
 def draw_card_secret(c, cfg: dict, rec: Wallet, W: float, H: float) -> None:
     """Recovery words on the inward face of a card-sized envelope panel.
@@ -1106,7 +1128,10 @@ def draw_card_secret(c, cfg: dict, rec: Wallet, W: float, H: float) -> None:
     # Title and serial each get their own line: the panel is too narrow to share a row.
     draw_block(c, cfg["inside_title"], M, H - 2.0 * mm, inner_w, 4.5 * mm, "Body", 8,
                color=RED, align="right", bold=True)
-    put(c, rec.serial, W - M, H - 8.6 * mm, "Body", 8, align="right", bold=True)
+    # Serial sits inboard of the crease: CARD_SERIAL_INSET instead of one margin,
+    # so it does not read as part of the fold line on a folded packet.
+    serial_right = W - CARD_SERIAL_INSET * mm
+    put(c, rec.serial, serial_right, H - 8.6 * mm, "Body", 8, align="right", bold=True)
     c.setStrokeColor(RED)
     c.setLineWidth(0.7)
     c.line(M, H - 10.5 * mm, W - M, H - 10.5 * mm)
@@ -1140,27 +1165,39 @@ def draw_leaf_guides(c, W: float, H: float) -> None:
 
     A solid line means "cut here"; a hatched band means "crease here". The two
     must never look alike, or the operator cuts a fold line.
+
+    The creases are drawn as CORNER TICKS, not full-length lines: a hatch that
+    ran edge to edge read like a second cut border and, worse, crowded the text
+    sitting near the panel edges. Each crease now shows only the first and last
+    few millimetres, which is enough to line up a fold and leaves the middle of
+    every edge clean.
     """
     c.saveState()
     # cut border: solid, thin
     c.setStrokeColor(CUT)
     c.setLineWidth(0.3)
     c.rect(0, 0, W, H, stroke=1, fill=0)
-    # fold creases: a hatched band, not a dashed line
+    # fold creases: short hatched ticks at both ends of each crease
     c.setStrokeColor(FOLD)
     c.setLineWidth(0.35)
     c.setDash(1.2, 1.2)
+    tick = FOLD_TICK * mm          # length of each corner tick
+    inset = 2 * mm                 # clear of the solid cut border
     for x in (CARD_PANEL_X * mm, (CARD_PANEL_X + CARD_ENV_W) * mm):
-        c.line(x, 2 * mm, x, H - 2 * mm)
+        c.line(x, inset, x, inset + tick)
+        c.line(x, H - inset - tick, x, H - inset)
     for y in (CARD_BOTTOM_FLAP * mm, CARD_TOP_FOLD * mm):
-        c.line(2 * mm, y, W - 2 * mm, y)
+        c.line(inset, y, inset + tick, y)
+        c.line(W - inset - tick, y, W - inset, y)
     c.setDash()
-    # seal-tab boundary: dashed red, the only red guide on the leaf
+    # seal-tab boundary: dashed red, the only red guide on the leaf. Drawn as a
+    # corner mark too — a full-width red rule looked like a cut line.
     c.setStrokeColor(RED)
     c.setLineWidth(0.4)
     c.setDash(2, 2)
-    c.line(2 * mm, (CARD_LEAF_H - CARD_SEAL_TAB) * mm,
-           W - 2 * mm, (CARD_LEAF_H - CARD_SEAL_TAB) * mm)
+    seal_y = (CARD_LEAF_H - CARD_SEAL_TAB) * mm
+    c.line(inset, seal_y, inset + tick, seal_y)
+    c.line(W - inset - tick, seal_y, W - inset, seal_y)
     c.setDash()
     c.restoreState()
 
@@ -1181,14 +1218,18 @@ def draw_regency_card_inside(c, cfg: dict, rec: Wallet, leaf_y: float, preview: 
                       (CARD_LEAF_H - CARD_SEAL_TAB) * mm + 1.5 * mm, 6 * mm)
     # Cold-storage guidance replaces the fold instructions: the operator folds
     # from the crease lines, the holder needs to know how to treat the key.
+    # The block is inset from BOTH vertical creases and centred on the leaf, so
+    # no line of text sits on a fold mark.
+    text_x = (CARD_PANEL_X + CARD_TEXT_INSET) * mm
+    text_w = (CARD_ENV_W - 2 * CARD_TEXT_INSET) * mm
+    flap_top = (CARD_LEAF_H - CARD_SEAL_TAB - CARD_FLAP_TEXT_TOP) * mm
     draw_block(c, ["این پاکت یک کیف پول سرد است: کلید خصوصی فقط روی کاغذ نگه داشته می‌شود و هرگز به اینترنت نمی‌رسد.",
                    "کلمات بازیابی را در هیچ سایت، اپ یا فرمی وارد نکنید؛ هر کس آن‌ها را ببیند می‌تواند موجودی را بردارد.",
                    "برای خرج کردن، کلمات را در یک کیف پول معتبر و آفلاین بازیابی کنید و موجودی را به آدرس تازهٔ خود منتقل کنید.",
                    "راهنمای کامل امنیت:"],
-               CARD_PANEL_X * mm, (CARD_LEAF_H - CARD_SEAL_TAB - 3) * mm,
-               CARD_ENV_W * mm, 34 * mm, "Body", 6.5, align="center")
+               text_x, flap_top, text_w, 34 * mm, "Body", 6.5, align="center")
     put(c, "https://bitposta.com/security", CARD_LEAF_W * mm / 2,
-        (CARD_LEAF_H - CARD_SEAL_TAB - 37) * mm, "Body", 7.5, align="center", bold=True)
+        flap_top - 37 * mm, "Body", 7.5, align="center", bold=True)
     c.saveState()
     c.translate(CARD_PANEL_X * mm, CARD_PANEL_Y * mm)
     draw_card_secret(c, cfg, rec, CARD_ENV_W * mm, CARD_ENV_H * mm)

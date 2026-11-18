@@ -32,6 +32,7 @@
   "btc_envelope_maker/tests/test_dependency_guidance.py",
   "btc_envelope_maker/tests/test_generator_crypto.py",
   "btc_envelope_maker/tests/test_generator_security.py",
+  "btc_envelope_maker/tests/test_guide_geometry.py",
   "btc_envelope_maker/tests/test_nfc_bindings.py",
   "btc_envelope_maker/tests/test_provenance.py",
   "btc_envelope_maker/tests/test_public_contract.py",
